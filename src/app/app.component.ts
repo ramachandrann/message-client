@@ -1,31 +1,42 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MessageService } from './shared/message.service';
+import { MessageAwaitingService } from './shared/message-awaiting.service';
+import { MessageAwaiting } from './shared/message.model';
 import { Message } from './shared/message.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[MessageService]
+  providers:[MessageService, MessageAwaitingService]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  connection: any;
-  messageCount: number;
-
-  constructor(private messageService:MessageService) {
+  public messageCount: number;  
+  public messages: MessageAwaiting[] = [];
+  private messageCountSubscription: any;
+  private messageAwaitingSubscription: any;
+  
+  constructor(private messageService:MessageService,
+              private messageAwaitingService:MessageAwaitingService) {
     console.log('AppComponent constructor');
   }
 
   ngOnInit() {
-        this.connection = this.messageService.getMessage().subscribe((msg: Message) => {
-            this.messageCount = msg.messageCount;
-        });
+    console.log('AppComponent ngOnInit');
+      this.messageCountSubscription = this.messageService.getMessage().subscribe((msg: Message) => {
+        this.messageCount = msg.messageCount;
+      });
+
+      this.messageAwaitingSubscription = this.messageAwaitingService.getMessagesAwaiting().subscribe((msgs: MessageAwaiting[]) => {
+        this.messages = msgs;
+      });
   }
 
   ngOnDestroy() {
     console.log('AppComponent destroyed');
-    this.connection.unsubscribe();
+    this.messageCountSubscription.unsubscribe();
+    this.messageAwaitingSubscription.unsubscribe();
   }
 }
 

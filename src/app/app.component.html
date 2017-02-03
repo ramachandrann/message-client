@@ -5,3 +5,12 @@
     <app-message-indicator [count]="messageCount"></app-message-indicator>    
   </md-toolbar>
 </md-sidenav-layout>
+<md-list dense>
+  <!--<md-divider></md-divider>-->
+  <!--  <h3 md-subheader>Referring Providers</h3>-->
+  <md-list-item *ngFor="let message of messages">
+    <!--<md-icon md-list-avatar>note</md-icon>-->
+    <!-- <img  md-list-avatar src="https://placekitten.com/g/200/300"> -->
+    <p md-line> {{message.text}} </p>
+  </md-list-item>
+</md-list>
