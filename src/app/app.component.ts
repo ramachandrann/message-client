@@ -1,25 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MessageService } from './shared/message.service';
-import { MessageAwaitingService } from './shared/message-awaiting.service';
-import { MessageAwaiting } from './shared/message.model';
 import { Message } from './shared/message.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[MessageService, MessageAwaitingService]
+  providers:[MessageService]
 })
 export class AppComponent implements OnInit, OnDestroy {
   public messageCount: number;  
   public showMessages: boolean = false;
-  public messages: MessageAwaiting[] = [];
+  public messages: Message[] = [];
   private messageCountSubscription: any;
   private messageAwaitingSubscription: any;
   
-  constructor(private messageService:MessageService,
-              private messageAwaitingService:MessageAwaitingService) {
+  constructor(private messageService:MessageService) {
     console.log('AppComponent constructor');
   }
 
@@ -27,11 +24,11 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log('AppComponent ngOnInit');
 
       this.messageService.establishIdentity(1);
-      this.messageCountSubscription = this.messageService.getMessage().subscribe((msg: Message) => {
-        this.messageCount = msg.messageCount;
+      this.messageCountSubscription = this.messageService.getUnReadMessageCount().subscribe((count: number) => {
+        this.messageCount = count;
       });
 
-      this.messageAwaitingSubscription = this.messageAwaitingService.getMessagesAwaiting().subscribe((msgs: MessageAwaiting[]) => {
+      this.messageAwaitingSubscription = this.messageService.getMessages().subscribe((msgs: Message[]) => {
         this.messages = msgs;
       });
   }

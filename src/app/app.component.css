@@ -1,0 +1,9 @@
+.list-header {
+  /*border-radius: 5px;*/
+  border: 1px solid red;
+  background: red;
+  width: 300px;
+  height: 30px;
+  margin: 16px; 
+  text-align: center;
+  }

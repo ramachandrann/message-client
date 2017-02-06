@@ -7,15 +7,15 @@ import { Component, OnInit, Input, Output, EventEmitter, trigger, state, transit
   animations: [
     trigger('countChanged', [
       state('inactive', style({
-        backgroundColor: 'yellow',
+        backgroundColor: 'gray',
         transform: 'scale(1)'
       })),
-      state('active',   style({
-        backgroundColor: 'red',
+      state('active', style({
+        backgroundColor: 'yellow',
         transform: 'scale(1.1)'
       })),
-      transition('inactive => active', animate('3000ms ease-in')),
-      transition('active => inactive', animate('3000ms ease-out'))
+      transition('inactive => active', animate('1000ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
     ])
   ]
 })
@@ -24,13 +24,15 @@ export class MessageIndicatorComponent implements OnInit {
   @Input()
   set count(value: number) {
     this._count = value;
-    this.countChangeAnimation = 'active'
+    this.state = 'active'
     this.notify();
   } 
   @Output() onClickEvent: EventEmitter<String> = new EventEmitter<String>();
-  countChangeAnimation: string = 'inactive';
+  state: string;
 
-  constructor() { }
+  constructor() { 
+    this.state = 'inactive';
+  }
 
   ngOnInit() {
   }
@@ -43,6 +45,7 @@ export class MessageIndicatorComponent implements OnInit {
   }
 
   onClick() {
+    this.state = 'inactive';
     this.onClickEvent.emit('click');
   }
 }

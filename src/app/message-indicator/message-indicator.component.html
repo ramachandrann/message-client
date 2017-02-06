@@ -1,5 +1,5 @@
 <md-chip-list>
   <md-chip color="accent" selected="{{_count > 0 ? true : false}}" (click)="onClick()"
-     [@countChanged]="countChangeAnimation"
+     [@countChanged]="state"
     >{{_count}}</md-chip>
 </md-chip-list>

@@ -2,10 +2,8 @@
   <md-sidenav #sidenav align="end">
     <md-list dense>
       <!--<md-divider></md-divider>-->
-       <h2 md-subheader>Notifications</h2>
+       <div class="list-header">Notifications</div>
       <md-list-item *ngFor="let message of messages">
-      <!--<md-icon md-list-avatar>note</md-icon>-->
-      <!-- <img  md-list-avatar src="https://placekitten.com/g/200/300"> -->
        <md-icon md-list-avatar>markunread</md-icon>
       <h4 md-line>{{message.text}}</h4>
       <p md-line class="demo-2">{{message.createdOn | date: 'MM/dd/yyyy hh:mm:ss'}}</p>
