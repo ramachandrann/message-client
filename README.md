@@ -1,4 +1,12 @@
+This project requires
+1. Zookeeper
+2. Kafka
+3. Kafka Connect
+4. Debezium (CDC tool for MySql)
+5. Local MySql
+
 # Socketmessages
+It demonstrates how sockets may be utilized to stream (notifications) data to an Angular2 front end via NodeJS
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.
 
