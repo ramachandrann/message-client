@@ -13,6 +13,7 @@ import { Message } from './shared/message.model';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public messageCount: number;  
+  public showMessages: boolean = false;
   public messages: MessageAwaiting[] = [];
   private messageCountSubscription: any;
   private messageAwaitingSubscription: any;
@@ -24,6 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('AppComponent ngOnInit');
+
+      this.messageService.establishIdentity(1);
       this.messageCountSubscription = this.messageService.getMessage().subscribe((msg: Message) => {
         this.messageCount = msg.messageCount;
       });
@@ -37,6 +40,10 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log('AppComponent destroyed');
     this.messageCountSubscription.unsubscribe();
     this.messageAwaitingSubscription.unsubscribe();
+  }
+
+  onMessageIndicatorClick(evnt) {
+    this.showMessages = !this.showMessages;
   }
 }
 

@@ -1,16 +1,37 @@
 <md-sidenav-layout>  
+  <md-sidenav #sidenav align="end">
+    <md-list dense>
+      <!--<md-divider></md-divider>-->
+       <h2 md-subheader>Notifications</h2>
+      <md-list-item *ngFor="let message of messages">
+      <!--<md-icon md-list-avatar>note</md-icon>-->
+      <!-- <img  md-list-avatar src="https://placekitten.com/g/200/300"> -->
+       <md-icon md-list-avatar>markunread</md-icon>
+      <h4 md-line>{{message.text}}</h4>
+      <p md-line class="demo-2">{{message.createdOn | date: 'MM/dd/yyyy hh:mm:ss'}}</p>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
   <md-toolbar color="primary">
     e-System
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inbox&nbsp;
-    <app-message-indicator [count]="messageCount"></app-message-indicator>    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <app-message-indicator [count]="messageCount" (click)="sidenav.open()"></app-message-indicator>    
   </md-toolbar>
+  <p></p>
+  <svg class="chart" width="420" height="150" aria-labelledby="title desc" role="img">
+    <title id="title">A bar chart showing information</title>
+    <desc id="desc">4 form A; 8 form B; 15 form C</desc>
+    <g class="bar">
+      <rect width="40" height="19" style="fill:green"></rect>
+      <text x="45" y="9.5" dy=".35em">4 form A</text>
+    </g>
+    <g class="bar">
+      <rect width="80" height="19" y="20" style="fill:red"></rect>
+      <text x="85" y="28" dy=".35em">8 form B</text>
+    </g>
+    <g class="bar">
+      <rect width="150" height="19" y="40" style="fill:yellow"></rect>
+      <text x="150" y="48" dy=".35em">15 form C</text>
+    </g>
+  </svg>
 </md-sidenav-layout>
-<md-list dense>
-  <!--<md-divider></md-divider>-->
-  <!--  <h3 md-subheader>Referring Providers</h3>-->
-  <md-list-item *ngFor="let message of messages">
-    <!--<md-icon md-list-avatar>note</md-icon>-->
-    <!-- <img  md-list-avatar src="https://placekitten.com/g/200/300"> -->
-    <p md-line> {{message.text}} </p>
-  </md-list-item>
-</md-list>

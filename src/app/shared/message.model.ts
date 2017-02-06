@@ -6,6 +6,7 @@ export class Message {
 export class MessageAwaiting {
     id: number;
     text: string;
-    read: string;
+    hasRead: string;
     userId: number;
+    createdOn: string;
 }

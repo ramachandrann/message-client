@@ -11,15 +11,15 @@ export class MessageService implements OnDestroy {
   
   constructor() {
     console.log('MessageService constructor');
+    this.socket = io(this.url);
   }
 
-  sendMessage(message){
-    this.socket.emit('add-message', message);    
+  establishIdentity(userId: number){
+    this.socket.emit('establish-identity', userId);    
   }
   
   getMessage() {
     let observable = new Rx.Observable(observer => {
-      this.socket = io(this.url);
       this.socket.on('message-count', (data) => {
         observer.next(data);    
       });
