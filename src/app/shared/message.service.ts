@@ -10,8 +10,11 @@ export class MessageService implements OnDestroy {
   private socket;
   
   constructor() {
+    //We could inject an authenticationService which provides the currently auth userId
+    //TODO: Infact context user must be established via JWT token, outside the scope of this POC.
+    //Refer: https://github.com/auth0/socketio-jwt
     console.log('MessageService constructor');
-    this.socket = io(this.API_ENDPOINT);
+    this.socket = io(this.API_ENDPOINT, { query: "userId=222" });
   }
 
   establishIdentity(userId: number){
@@ -34,7 +37,7 @@ export class MessageService implements OnDestroy {
 
   getMessages() {
     let observable = new Rx.Observable(observer => {
-      this.socket = io(this.API_ENDPOINT);
+      //this.socket = io(this.API_ENDPOINT);
       this.socket.on('get-messages', (data) => {
         observer.next(data);    
       });

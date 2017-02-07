@@ -8,6 +8,36 @@ This project requires
 # Socketmessages
 It demonstrates how sockets may be utilized to stream (notifications) data to an Angular2 front end via NodeJS
 
+### Startup options on windows (after installing Zookeeper, Kafka, Kafka Connect, Debezium)
+zookeeper 
+localhost:2181
+
+cd C:\zookeeper-3.4.9\bin
+zkServer.cmd
+
+cd C:\kafka_2.11-0.10.1.1\bin\windows
+kafka-server-start.bat ../../config/server.properties
+
+enable in mysql.ini file.
+# Binary Logging.
+log_bin=mysql-bin
+
+# Server Id.
+server-id=184054
+
+(created kafka-connect.bat under windows)
+
+C:\kafka_2.11-0.10.1.1\bin\windows>kafka-connect ../../config/connect-standalone.properties ../../config/mysql.connector.properties
+
+Since Kafka Connect is intended to be run as a service, it also provides a REST API for managing connectors. By default, this service runs on port 8083
+GET /connectors
+
+C:\kafka_2.11-0.10.1.1\bin\windows>kafka-console-consumer --bootstrap-server localhost:9092 --topic localmysql.demo.message --from-beginning
+
+pm2 start app.js --watch
+pm2 stop --watch 0 will stop watching
+
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.
 
 ## Development server
